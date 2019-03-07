@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button brtn;
-    Context ct;
     MediaPlayer mp;
 
     @Override
