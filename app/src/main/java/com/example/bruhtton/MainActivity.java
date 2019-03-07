@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        brtn = (Button)findViewById(R.id.btnBruh);
+        brtn = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
         brtn.setOnClickListener(new View.OnClickListener(){
             @Override
