@@ -1,5 +1,6 @@
 package com.example.bruhtton;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,17 +10,28 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button brtn;
+    Context ct;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         brtn = (Button)findViewById(R.id.btnBruh);
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.bruh);
+        mp = MediaPlayer.create(this, R.raw.bruh);
         brtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                mp.start();
+
+                try {
+                    if (mp.isPlaying()) {
+                        mp.pause();
+                        mp.seekTo(0);
+                    }
+                    mp.start();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
                 bruh(view);
             }
         });
