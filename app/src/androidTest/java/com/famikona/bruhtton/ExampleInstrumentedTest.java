@@ -1,4 +1,4 @@
-package com.example.bruhtton;
+package com.famikona.bruhtton;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

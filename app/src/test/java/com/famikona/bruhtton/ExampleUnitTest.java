@@ -1,4 +1,4 @@
-package com.example.bruhtton;
+package com.famikona.bruhtton;
 
 import org.junit.Test;
 

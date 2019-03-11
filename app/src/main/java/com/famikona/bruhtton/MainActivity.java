@@ -1,4 +1,4 @@
-package com.example.bruhtton;
+package com.famikona.bruhtton;
 
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
