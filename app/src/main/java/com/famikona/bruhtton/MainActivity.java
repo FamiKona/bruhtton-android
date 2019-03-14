@@ -6,21 +6,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
     Button brtn;
     MediaPlayer mp;
+    ImageView img;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        img = findViewById(R.id.imageView);
         brtn = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
         brtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
+                img.setVisibility(View.VISIBLE);
                 try {
                     if (mp.isPlaying()) {
                         mp.pause();
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 bruh(view);
+                img.setVisibility(View.INVISIBLE);
             }
         });
     }
