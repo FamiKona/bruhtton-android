@@ -41,6 +41,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+//    Thread imageRender = new Thread() {
+//        @Override
+//        public void run() {
+//            if (mp.isPlaying() && img.getVisibility() == View.INVISIBLE) {
+//                img.setVisibility(View.VISIBLE);
+//            } else if (!mp.isPlaying() && img.getVisibility() == View.VISIBLE) {
+//                img.setVisibility(View.INVISIBLE);
+//            }
+//        }
+//    };
+//
+//    imageRender.start();
+
     public void bruh (View view) {
         Toast.makeText(this, "bruh", Toast.LENGTH_SHORT).show();
     }
