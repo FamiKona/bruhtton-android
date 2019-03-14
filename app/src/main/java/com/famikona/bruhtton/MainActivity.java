@@ -18,9 +18,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        img = findViewById(R.id.imageView);
+        img = findViewById(R.id.face);
         brtn = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
+        imageRender.start();
         brtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -41,18 +42,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    Thread imageRender = new Thread() {
-//        @Override
-//        public void run() {
-//            if (mp.isPlaying() && img.getVisibility() == View.INVISIBLE) {
-//                img.setVisibility(View.VISIBLE);
-//            } else if (!mp.isPlaying() && img.getVisibility() == View.VISIBLE) {
-//                img.setVisibility(View.INVISIBLE);
-//            }
-//        }
-//    };
-//
-//    imageRender.start();
+    Thread imageRender = new Thread() {
+        @Override
+        public void run() {
+            if (mp.isPlaying() && img.getVisibility() == View.INVISIBLE) {
+                img.setVisibility(View.VISIBLE);
+            } else if (!mp.isPlaying() && img.getVisibility() == View.VISIBLE) {
+                img.setVisibility(View.INVISIBLE);
+            }
+        }
+    };
 
     public void bruh (View view) {
         Toast.makeText(this, "bruh", Toast.LENGTH_SHORT).show();
