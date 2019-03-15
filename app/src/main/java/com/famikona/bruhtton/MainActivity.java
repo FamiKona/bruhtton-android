@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     Button brtn;
     MediaPlayer mp;
     ImageView img;
+    Thread t1 = new Thread(new ImageRender());
 
 
     @Override
@@ -21,24 +22,25 @@ public class MainActivity extends AppCompatActivity {
         img = findViewById(R.id.face);
         brtn = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
-        Thread t1 = new Thread(new ImageRender());
-        t1.start();
+        img.setVisibility(View.INVISIBLE);
         brtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
-                img.setVisibility(View.VISIBLE);
                 try {
                     if (mp.isPlaying()) {
                         mp.pause();
                         mp.seekTo(0);
                     }
+                    img.setVisibility(View.VISIBLE);
                     mp.start();
+                    if (!t1.isAlive()) {
+                        t1.start();
+                    }
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
                 bruh(view);
-                img.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -46,24 +48,17 @@ public class MainActivity extends AppCompatActivity {
     class ImageRender implements Runnable {
         @Override
         public void run() {
-            while (true) {
-                //System.out.println("yeet"); // checks if loop is running
-                if (mp.isPlaying() && img.getVisibility() == View.INVISIBLE) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            img.setVisibility(View.VISIBLE);
-                        }
-                    });
-                } else if (!mp.isPlaying() && img.getVisibility() == View.VISIBLE) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            img.setVisibility(View.INVISIBLE);
-                        }
-                    });
-                }
+            while (mp.isPlaying()) {
+                // do nothing
+                System.out.println("yeet");
             }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    img.setVisibility(View.INVISIBLE);
+                }
+            });
+
         }
     }
 
