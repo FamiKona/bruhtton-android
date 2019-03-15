@@ -9,10 +9,9 @@ import android.widget.Toast;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    Button brtn;
+    Button button_bruh;
     MediaPlayer mp;
     ImageView img;
-    Thread t1 = new Thread(new ImageRender());
 
 
     @Override
@@ -20,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         img = findViewById(R.id.face);
-        brtn = findViewById(R.id.btnBruh);
+        button_bruh = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
         img.setVisibility(View.INVISIBLE);
-        brtn.setOnClickListener(new View.OnClickListener(){
+        button_bruh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
@@ -34,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     img.setVisibility(View.VISIBLE);
                     mp.start();
-                    if (!t1.isAlive()) {
-                        t1.start();
-                    }
+                    runner();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -45,13 +42,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void runner() {
+        Thread t = new Thread(new ImageRender());
+        t.start();
+    }
+
     class ImageRender implements Runnable {
         @Override
         public void run() {
-            while (mp.isPlaying()) {
-                // do nothing
-                System.out.println("yeet");
-            }
+            //noinspection StatementWithEmptyBody
+            while (mp.isPlaying());
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
