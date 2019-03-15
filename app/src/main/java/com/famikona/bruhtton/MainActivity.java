@@ -6,18 +6,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    Button brtn;
+    Button button_bruh;
     MediaPlayer mp;
+    ImageView img;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        brtn = findViewById(R.id.btnBruh);
+        img = findViewById(R.id.face);
+        button_bruh = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
-        brtn.setOnClickListener(new View.OnClickListener(){
+        img.setVisibility(View.INVISIBLE);
+        button_bruh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
@@ -26,13 +31,35 @@ public class MainActivity extends AppCompatActivity {
                         mp.pause();
                         mp.seekTo(0);
                     }
+                    img.setVisibility(View.VISIBLE);
                     mp.start();
+                    runner();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
                 bruh(view);
             }
         });
+    }
+
+    public void runner() {
+        Thread t = new Thread(new ImageRender());
+        t.start();
+    }
+
+    class ImageRender implements Runnable {
+        @Override
+        public void run() {
+            //noinspection StatementWithEmptyBody
+            while (mp.isPlaying());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    img.setVisibility(View.INVISIBLE);
+                }
+            });
+
+        }
     }
 
     public void bruh (View view) {
