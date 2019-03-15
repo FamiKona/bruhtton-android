@@ -9,7 +9,7 @@ import android.widget.Toast;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    Button brtn;
+    Button button_bruh;
     MediaPlayer mp;
     ImageView img;
 
@@ -19,39 +19,48 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         img = findViewById(R.id.face);
-        brtn = findViewById(R.id.btnBruh);
+        button_bruh = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
-        imageRender.start();
-        brtn.setOnClickListener(new View.OnClickListener(){
+        img.setVisibility(View.INVISIBLE);
+        button_bruh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
-                img.setVisibility(View.VISIBLE);
                 try {
                     if (mp.isPlaying()) {
                         mp.pause();
                         mp.seekTo(0);
                     }
+                    img.setVisibility(View.VISIBLE);
                     mp.start();
+                    runner();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
                 bruh(view);
-                img.setVisibility(View.INVISIBLE);
             }
         });
     }
 
-    Thread imageRender = new Thread() {
+    public void runner() {
+        Thread t = new Thread(new ImageRender());
+        t.start();
+    }
+
+    class ImageRender implements Runnable {
         @Override
         public void run() {
-            if (mp.isPlaying() && img.getVisibility() == View.INVISIBLE) {
-                img.setVisibility(View.VISIBLE);
-            } else if (!mp.isPlaying() && img.getVisibility() == View.VISIBLE) {
-                img.setVisibility(View.INVISIBLE);
-            }
+            //noinspection StatementWithEmptyBody
+            while (mp.isPlaying());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    img.setVisibility(View.INVISIBLE);
+                }
+            });
+
         }
-    };
+    }
 
     public void bruh (View view) {
         Toast.makeText(this, "bruh", Toast.LENGTH_SHORT).show();
