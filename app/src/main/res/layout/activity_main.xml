@@ -27,11 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:contentDescription="@string/bruhface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_launcher"
-        tools:srcCompat="@tools:sample/avatars[14]" />
+        app:srcCompat="@drawable/bruhsuke"
+        tools:srcCompat="@drawable/bruhsuke" />
 </android.support.constraint.ConstraintLayout>
