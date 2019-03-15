@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
         img = findViewById(R.id.face);
         brtn = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
-        imageRender.start();
+        Thread t1 = new Thread(new ImageRender());
+        t1.start();
         brtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -42,16 +43,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    Thread imageRender = new Thread() {
+    class ImageRender implements Runnable {
         @Override
         public void run() {
-            if (mp.isPlaying() && img.getVisibility() == View.INVISIBLE) {
-                img.setVisibility(View.VISIBLE);
-            } else if (!mp.isPlaying() && img.getVisibility() == View.VISIBLE) {
-                img.setVisibility(View.INVISIBLE);
+            while (true) {
+                //System.out.println("yeet"); // checks if loop is running
+                if (mp.isPlaying() && img.getVisibility() == View.INVISIBLE) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            img.setVisibility(View.VISIBLE);
+                        }
+                    });
+                } else if (!mp.isPlaying() && img.getVisibility() == View.VISIBLE) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            img.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }
             }
         }
-    };
+    }
 
     public void bruh (View view) {
         Toast.makeText(this, "bruh", Toast.LENGTH_SHORT).show();
