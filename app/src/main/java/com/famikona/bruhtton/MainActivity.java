@@ -50,8 +50,15 @@ public class MainActivity extends AppCompatActivity {
     class ImageRender implements Runnable {
         @Override
         public void run() {
-            //noinspection StatementWithEmptyBody
-            while (mp.isPlaying());
+            while (mp.isPlaying()) {
+                synchronized (this) {
+                    try {
+                        wait(20);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
