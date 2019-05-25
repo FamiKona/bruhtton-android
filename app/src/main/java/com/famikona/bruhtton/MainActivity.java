@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer mp;
     ImageView img;
     int count;
+    boolean switchedToNT = false;
 
 
     @Override
@@ -40,9 +41,23 @@ public class MainActivity extends AppCompatActivity {
                 }
                 bruh(view);
                 count++;
-                if (count > 50) {
-                    button_bruh.setBackground("@drawable/negat.png");
+                if (count > 50 && !switchedToNT) {
+                    switchedToNT = true;
+                    Button nt = findViewById(R.id.btnBruhNega);
+                    nt.setVisibility(View.VISIBLE);
+                    button_bruh.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+        Button resetB = findViewById(R.id.reset);
+        resetB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                count = -10000;
+                switchedToNT = false;
+                Button nt = findViewById(R.id.btnBruhNega);
+                nt.setVisibility(View.INVISIBLE);
+                button_bruh.setVisibility(View.VISIBLE);
             }
         });
     }
