@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     Button button_bruh;
     MediaPlayer mp;
     ImageView img;
+    int count;
 
 
     @Override
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 bruh(view);
+                count++;
+                if (count > 50) {
+                    button_bruh.setBackground("@drawable/negat.png");
+                }
             }
         });
     }
