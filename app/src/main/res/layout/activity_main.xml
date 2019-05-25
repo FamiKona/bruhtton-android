@@ -14,6 +14,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
+        android:background="@drawable/normt"
         android:onClick="bruh"
         android:text="@string/bruh"
         app:layout_constraintBottom_toBottomOf="parent"
