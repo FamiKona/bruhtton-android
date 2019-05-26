@@ -1,6 +1,7 @@
 package com.famikona.bruhtton;
 
 import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     Button button_bruh;
     MediaPlayer mp;
     ImageView img;
+    ImageView img2;
     int count;
     boolean switchedToNT = false;
 
@@ -21,9 +23,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         img = findViewById(R.id.face);
+        img2 = findViewById(R.id.face2);
         button_bruh = findViewById(R.id.btnBruh);
         mp = MediaPlayer.create(this, R.raw.bruh);
         img.setVisibility(View.INVISIBLE);
+        img2.setVisibility(View.INVISIBLE);
         button_bruh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -55,6 +59,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 count = -10000;
                 switchedToNT = false;
+                long l = 250;
+                img2.setVisibility(View.VISIBLE);
+                new CountDownTimer(l, l) {
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    public void onFinish() {
+                        img2.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
                 Button nt = findViewById(R.id.btnBruhNega);
                 nt.setVisibility(View.INVISIBLE);
                 button_bruh.setVisibility(View.VISIBLE);
